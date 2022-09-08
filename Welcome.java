@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
+
 public class Welcome {
 	 public static void main(String args[]) {
 		 
@@ -50,7 +51,7 @@ public class Welcome {
 	private static void addFile() {
 		// TODO Auto-generated method stub
 		  String name;
-		  System.out.println("File name:");
+		  System.out.println("Enter File name:");
 		  Scanner Sc=new Scanner(System.in);
 		  name =Sc.nextLine();
      	  String data = "This is the data in the output file";
@@ -60,6 +61,7 @@ public class Welcome {
 
 	      // Writes the string to the file
 	      output.write(data);
+	      System.out.println("File added Succesfully");
 
 	      // Closes the writer
 	      output.close();
@@ -80,7 +82,7 @@ public class Welcome {
 	private static void delFile() {
 		// TODO Auto-generated method stub
 		String name;
-	    System.out.println("File name:");
+	    System.out.println("Enter File name you want to delete:");
 	  	Scanner Sc=new Scanner(System.in);
 	  	name =Sc.nextLine();
         File temp_file = new File(name);   // Object of file class       
@@ -94,42 +96,67 @@ public class Welcome {
 	    }
 
 	private static void searchFile() {
-		// TODO Auto-generated method stub
 		String path = System.getProperty("user.dir");
-		String Filename = null;
-        //System.out.println("Working Directory = " + path);
-        System.out.println("Enter File name:");
-	    try {
-	    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in ));
-			Filename = br.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    File f= new File(path);
-	    String[] data=f.list();
-	     
-	    for(int k=0;k<=data.length;k++)
-	    {
-	      if(data[k]==Filename)
-	          System.out.println("File " +Filename+ " Found");
-	      break;
-	    }
-	      
-	    }		    	
-  
+		 String dname = null;
+		 File f = new File(path);
+		 String data[] = f.list();
+        int n = data.length;
+		
+		 
+		 String name = null;
+		 System.out.println("Enter File name:");
+		    try {
+		    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in ));
+				name = br.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			}
+		   n=data.length;
+		   //System.out.println("Filename = " +name);
+		   int i;
+		   int k = 0;
+		 try{
+		   for(i=0;i<=n;i++) 
+		   {
+		   if( name.compareTo(data[i])==0)
+		   {
+		         System.out.println("file found");}
+		     else
+		    	 {k++;}
+		   }
+		 
+		   }catch(Exception e) {System.out.println("");} 
+		 
+		 if(k==n) {System.out.println("file does not exist");}
+		 	    	
+	}
+	
 	private static void listFile() {
 		 String path = System.getProperty("user.dir");
 		 String dname = null;
 		 File f = new File(path);
 		 String data[] = f.list();
          int n = data.length;
-		 for (int i = 0; i < n; i++) {
-		 System.out.println(data[i]);
-		      	
-  }
- }
-}
+         String temp=null;
+         try{
+		 for (int i = 0;i<=n;i++) {
+			 
+			 for(int j=1;j<=n;j++) {
+				 if(data[i].compareTo(data[j])<0);
+				 {
+				 temp=data[i];
+				 data[i]=data[j];
+				 data[j]=temp;
+				 
+				 }	 
+				 System.out.println(data[i]);
+				 }
+		 } 
+         }catch(Exception e) {
+             System.out.println("\nException caught");}
 	 
 
-
+	}
+}
